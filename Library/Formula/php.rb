@@ -1,15 +1,15 @@
 require 'formula'
 
 class Php <Formula
-  @url='http://www.php.net/get/php-5.3.2.tar.bz2/from/www.php.net/mirror'
-  @version='5.3.2'
+  @url='http://www.php.net/get/php-5.3.6.tar.bz2/from/www.php.net/mirror'
+  @version='5.3.6'
   @homepage='http://php.net/'
-  @md5='46f500816125202c48a458d0133254a4'
+  @md5='2286f5a82a6e8397955a0025c1c2ad98'
 
   depends_on 'jpeg'
-  depends_on 'freetype'
-  depends_on 'libpng'
-  depends_on 'libmcrypt'
+  # depends_on 'freetype'
+  # depends_on 'libpng'
+  depends_on 'mcrypt'
   depends_on 'libiconv'
   # depends_on 'mysql'
 
@@ -20,7 +20,7 @@ class Php <Formula
       # ['--with-pear', "Install PEAR PHP package manager after build"]
     ]
   end
-  
+
   def caveats
     <<-END_CAVEATS
 Pass --without-mysql to build without MySQL (PDO) support
@@ -32,6 +32,7 @@ Pass --without-mysql to build without MySQL (PDO) support
   end
 
   def install
+    x11_dir = ENV.x11
     configure_args = [
       "--prefix=#{prefix}", "--disable-debug",
         "--mandir=#{man}",
@@ -47,20 +48,20 @@ Pass --without-mysql to build without MySQL (PDO) support
         "--enable-sockets",
         "--with-iodbc=/usr",
         "--with-curl=/usr",
-        "--with-config-file-path=#{HOMEBREW_PREFIX}/etc",
+        "--with-config-file-path=#{etc}",
         "--sysconfdir=/private/etc",
         "--with-openssl=/usr",
         "--with-xmlrpc",
         "--with-xsl=/usr",
-        "--with-pear=#{HOMEBREW_PREFIX}/lib/php",
+        "--with-pear=#{lib}/php",
         "--with-libxml-dir=/usr",
-        "--with-iconv=#{HOMEBREW_PREFIX}/Cellar/libiconv/#{versions_of("libiconv").first}",
+        "--with-iconv=#{Formula.factory('libiconv').prefix}",
         "--with-gd",
-        "--with-jpeg-dir=#{HOMEBREW_PREFIX}",
-        "--with-png-dir=#{HOMEBREW_PREFIX}/Cellar/libpng/#{versions_of("libpng").first}",
-        "--with-freetype-dir=#{HOMEBREW_PREFIX}",
-        "--with-mcrypt=#{HOMEBREW_PREFIX}"]
-    
+        "--with-jpeg-dir=#{Formula.factory('jpeg').prefix}",
+        "--with-png-dir=#{x11_dir}",
+        "--with-freetype-dir=#{x11_dir}",
+        "--with-mcrypt=#{Formula.factory('mcrypt').prefix}"]
+
     if ARGV.include? '--without-mysql'
       puts "Not building MySQL (PDO) support"
     else
@@ -70,14 +71,14 @@ Pass --without-mysql to build without MySQL (PDO) support
       "--with-mysql=#{HOMEBREW_PREFIX}/lib/mysql",
       "--with-pdo-mysql=#{HOMEBREW_PREFIX}/bin/mysql_config")
     end
-    
+
     system "./configure", *configure_args
-    
+
     system "make"
     system "make install"
 
     system "cp ./php.ini-development #{etc}/php.ini"
-    
+
     # if ARGV.include? '--with-pear'
     #   system "curl http://pear.php.net/go-pear | #{prefix}/bin/php"
     # end
