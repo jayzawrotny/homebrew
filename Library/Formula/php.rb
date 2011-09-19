@@ -72,6 +72,11 @@ Pass --without-mysql to build without MySQL (PDO) support
       "--with-pdo-mysql=#{HOMEBREW_PREFIX}/bin/mysql_config")
     end
 
+	 # Enable PHP FPM
+    if ARGV.include? '--with-fpm'
+      configure_args.push "--enable-fpm"
+    end
+
     system "./configure", *configure_args
 
     system "make"
