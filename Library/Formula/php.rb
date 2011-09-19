@@ -7,7 +7,7 @@ class Php <Formula
   @md5='704cd414a0565d905e1074ffdc1fadfb'
 
   depends_on 'jpeg'
-  depends_on 'libpng'
+  #depends_on 'libpng'
   depends_on 'mcrypt'
   depends_on 'libiconv'
   depends_on 'gettext'
