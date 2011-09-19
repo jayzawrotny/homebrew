@@ -1,10 +1,10 @@
 require 'formula'
 
 class Php <Formula
-  @url='http://www.php.net/get/php-5.3.6.tar.bz2/from/www.php.net/mirror'
-  @version='5.3.6'
+  @url='http://www.php.net/get/php-5.3.8.tar.bz2/from/www.php.net/mirror'
+  @version='5.3.8'
   @homepage='http://php.net/'
-  @md5='2286f5a82a6e8397955a0025c1c2ad98'
+  @md5='704cd414a0565d905e1074ffdc1fadfb'
 
   depends_on 'jpeg'
   # depends_on 'freetype'
