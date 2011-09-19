@@ -17,8 +17,8 @@ class Php <Formula
   def options
     [
       ['--with-apache', "Install the Apache module"],
-      ['--with-mysql',  "Build with MySQL (PDO) support"]
-	  ['--with-fpm', 'Enable building of the fpm SAPI executable'],
+      ['--with-mysql',  "Build with MySQL (PDO) support"],
+	  ['--with-fpm', 'Enable building of the fpm SAPI executable']
       # ['--with-pear', "Install PEAR PHP package manager after build"]
     ]
   end
