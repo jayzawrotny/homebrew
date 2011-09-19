@@ -16,8 +16,7 @@ class Php <Formula
   def options
     [
       ['--with-apache', "Install the Apache module"],
-      ['--with-mysql',  "Build with MySQL (PDO) support"],
-	  ['--with-fpm', 'Enable building of the fpm SAPI executable']
+      ['--with-mysql',  "Build with MySQL (PDO) support"]
       # ['--with-pear', "Install PEAR PHP package manager after build"]
     ]
   end
@@ -26,10 +25,6 @@ class Php <Formula
     <<-END_CAVEATS
 Pass --without-mysql to build without MySQL (PDO) support
     END_CAVEATS
-  end
-
-  if ARGV.include? '--with-fpm'
-    depends_on 'libevent'
   end
 
   def skip_clean? path
@@ -86,11 +81,6 @@ Pass --without-mysql to build without MySQL (PDO) support
       "--with-mysqli=#{HOMEBREW_PREFIX}/bin/mysql_config",
       "--with-mysql=#{HOMEBREW_PREFIX}/lib/mysql",
       "--with-pdo-mysql=#{HOMEBREW_PREFIX}/bin/mysql_config")
-    end
-
-	 # Enable PHP FPM
-    if ARGV.include? '--with-fpm'
-      configure_args.push "--enable-fpm"
     end
 
     system "./configure", *configure_args
