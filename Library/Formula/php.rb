@@ -4,7 +4,7 @@ class Php <Formula
   @url='http://www.php.net/get/php-5.3.8.tar.bz2/from/www.php.net/mirror'
   @version='5.3.8'
   @homepage='http://php.net/'
-  @md5='704cd414a0565d905e1074ffdc1fadfb'
+  @md5='f4ce40d5d156ca66a996dbb8a0e7666a'
 
   depends_on 'jpeg'
   #depends_on 'libpng'
