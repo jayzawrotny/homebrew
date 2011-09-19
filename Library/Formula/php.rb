@@ -7,16 +7,18 @@ class Php <Formula
   @md5='704cd414a0565d905e1074ffdc1fadfb'
 
   depends_on 'jpeg'
-  # depends_on 'freetype'
-  # depends_on 'libpng'
+  depends_on 'freetype'
+  depends_on 'libpng'
   depends_on 'mcrypt'
   depends_on 'libiconv'
+  depends_on 'gettext'
   # depends_on 'mysql'
 
   def options
     [
       ['--with-apache', "Install the Apache module"],
       ['--with-mysql',  "Build with MySQL (PDO) support"]
+	  ['--with-fpm', 'Enable building of the fpm SAPI executable'],
       # ['--with-pear', "Install PEAR PHP package manager after build"]
     ]
   end
@@ -27,6 +29,10 @@ Pass --without-mysql to build without MySQL (PDO) support
     END_CAVEATS
   end
 
+  if ARGV.include? '--with-fpm'
+    depends_on 'libevent'
+  end
+
   def skip_clean? path
     path == bin+'php'
   end
@@ -34,7 +40,8 @@ Pass --without-mysql to build without MySQL (PDO) support
   def install
     x11_dir = ENV.x11
     configure_args = [
-      "--prefix=#{prefix}", "--disable-debug",
+      "--prefix=#{prefix}", 
+		"--disable-debug",
         "--mandir=#{man}",
         "--with-ldap=/usr",
         "--with-kerberos=/usr",
@@ -49,6 +56,8 @@ Pass --without-mysql to build without MySQL (PDO) support
         "--with-iodbc=/usr",
         "--with-curl=/usr",
         "--with-config-file-path=#{etc}",
+		"--enable-bcmath",
+		"--enable-calendar",
         "--sysconfdir=/private/etc",
         "--with-openssl=/usr",
         "--with-xmlrpc",
@@ -60,7 +69,15 @@ Pass --without-mysql to build without MySQL (PDO) support
         "--with-jpeg-dir=#{Formula.factory('jpeg').prefix}",
         "--with-png-dir=#{x11_dir}",
         "--with-freetype-dir=#{x11_dir}",
-        "--with-mcrypt=#{Formula.factory('mcrypt').prefix}"]
+        "--with-mcrypt=#{Formula.factory('mcrypt').prefix}",
+		"--with-curl=/usr",
+		"--with-tidy",
+		"--enable-zip",
+		"--enable-wddx",
+		"--enable-memcache",
+		"--enable-zend-multibyte",
+		"--enable-memory-limit"
+	]
 
     if ARGV.include? '--without-mysql'
       puts "Not building MySQL (PDO) support"
