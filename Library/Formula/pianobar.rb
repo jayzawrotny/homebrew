@@ -2,8 +2,8 @@ require 'formula'
 
 class Pianobar < Formula
   homepage 'https://github.com/PromyLOPh/pianobar/'
-  url 'https://github.com/PromyLOPh/pianobar/tarball/2012.01.10'
-  md5 'a703227c079cb0fe20ac4abbdfbc6f08'
+  url 'https://github.com/PromyLOPh/pianobar/tarball/2012.04.24'
+  md5 'bb3dbe40a59be7060114abf7f2a962c2'
 
   head 'https://github.com/PromyLOPh/pianobar.git'
 
