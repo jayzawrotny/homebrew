@@ -3,7 +3,7 @@ require 'formula'
 class Pianobar < Formula
   homepage 'https://github.com/PromyLOPh/pianobar/'
   url 'https://github.com/PromyLOPh/pianobar/tarball/2012.04.24'
-  md5 'bb3dbe40a59be7060114abf7f2a962c2'
+  md5 'bbdb0f5e0bfd811496488e5c3b85a8fd'
 
   head 'https://github.com/PromyLOPh/pianobar.git'
 
